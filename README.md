@@ -12,12 +12,11 @@
 
 The **GovSentinelX** Intelligent Contract is deployed, finalized, and verified on GenLayer **studionet**:
 
-- **CONTRACT_ADDRESS:** `0x9ccC975433bfACA58E82a7F8D72b617c484f6860`
-- **DEPLOYER_ADDRESS:** `0x33Ce552FBA45C17478aBc5778bDbc2c86E9a9A05`
-- **TRANSACTION_HASH:** `0x29ec353949adf9d4d0c94a560555d82be5e14e14b1b5acd3b45aaee23608c390`
+- **CONTRACT_ADDRESS:** `0x548882A4c177272eE5e500d394CcB641df145a77`
+- **DEPLOYER_ADDRESS:** `0x36cba5d4d4d0a2dc6d57e81d8e82385a08c8ad36`
 - **NETWORK:** `studionet` (Chain ID: `61999` / `0xF1EF`)
 - **RPC_URL:** `https://studio.genlayer.com/api`
-- **EXPLORER_LINK:** [View on GenLayer Studio Explorer](https://explorer-studio.genlayer.com/address/0x9ccC975433bfACA58E82a7F8D72b617c484f6860)
+- **EXPLORER_LINK:** [View on GenLayer Studio Explorer](https://explorer-studio.genlayer.com/address/0x548882A4c177272eE5e500d394CcB641df145a77)
 - **RECEIPT_STATUS:** `5` (FINALIZED)
 - **RESULT:** `6` (SUCCESS)
 - **Deployment Details:** [`deployment.json`](deployment.json)

@@ -3,10 +3,10 @@
 **Portal Track:** Builder  
 **Contribution Type:** Intelligent Contracts  
 **Network:** studionet (Chain ID: 61999)  
-**Contract Address:** `0x9ccC975433bfACA58E82a7F8D72b617c484f6860`  
-**Deployer Address:** `0x33Ce552FBA45C17478aBc5778bDbc2c86E9a9A05`  
-**Transaction Hash:** `0x29ec353949adf9d4d0c94a560555d82be5e14e14b1b5acd3b45aaee23608c390`  
-**Evidence URL 1:** `https://explorer-studio.genlayer.com/address/0x9ccC975433bfACA58E82a7F8D72b617c484f6860`  
+**Contract Address:** `0x548882A4c177272eE5e500d394CcB641df145a77`  
+**Deployer Address:** `0x36cba5d4d4d0a2dc6d57e81d8e82385a08c8ad36`  
+**Evidence URL 1:** `https://github.com/tuannguyenvan95/GovSentinelX`  
+**Evidence URL 2:** `https://explorer-studio.genlayer.com/address/0x548882A4c177272eE5e500d394CcB641df145a77`  
 
 ---
 
@@ -40,5 +40,5 @@ We are pleased to submit GovSentinelX for the GenLayer Builder Track:
 1. Core Decision on GenVM: Web scraping of live DAO proposals (Snapshot/Tally/Forums) and LLM-driven impact & compliance audits execute autonomously inside the Intelligent Contract via gl.nondet.web.render and gl.vm.run_nondet validator consensus.
 2. Robust Edge-Case Handling: 404 pages, offline forums, and unparseable contents are gracefully classified as FAILED_EVIDENCE, preventing state corruption. Anti-SSRF guards strictly protect against internal subnet probing.
 3. Strict Storage Compliance: Full conformance with GenVM storage laws (R14) using @allow_storage @dataclass with bigint fields for risk_score, counters, and timestamps.
-4. Comprehensive Testing & Verification: 10/10 automated gltest unit tests passing across all analysis modes and edge cases. The contract is finalized and verified on Studionet at address 0x9ccC975433bfACA58E82a7F8D72b617c484f6860.
+4. Comprehensive Testing & Verification: 10/10 automated gltest unit tests passing across all analysis modes and edge cases. The contract is finalized and verified on Studionet at address 0x548882A4c177272eE5e500d394CcB641df145a77.
 ```
