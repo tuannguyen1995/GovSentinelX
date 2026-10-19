@@ -5,7 +5,7 @@
 **Network:** studionet (Chain ID: 61999)  
 **Contract Address:** `0x548882A4c177272eE5e500d394CcB641df145a77`  
 **Deployer Address:** `0x36cba5d4d4d0a2dc6d57e81d8e82385a08c8ad36`  
-**Evidence URL 1:** `https://github.com/tuannguyenvan95/GovSentinelX`  
+**Evidence URL 1:** `https://github.com/tuannguyen1995/GovSentinelX`  
 **Evidence URL 2:** `https://explorer-studio.genlayer.com/address/0x548882A4c177272eE5e500d394CcB641df145a77`  
 
 ---
