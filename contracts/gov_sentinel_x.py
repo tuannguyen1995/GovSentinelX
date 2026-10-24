@@ -69,7 +69,7 @@ class GovProposal:
     proposal_url: str       # Link to Snapshot/Forum governance proposal
     title: str              # Proposal title or identifier
     status: str             # "PENDING", "ANALYZED", "FAILED_EVIDENCE"
-    risk_score: bigint      # 0 to 100 risk assessment score (compliant with GenVM R14: no bare int in storage)
+    risk_score: bigint      # 0 to 100 risk score (bigint: conforms to GenVM R14)
     sentiment: str          # "FAVORABLE", "CONTROVERSIAL", "HIGH_RISK", "FAILED_EVIDENCE"
     summary_report: str     # AI structured impact and compliance summary
     created_at: bigint
@@ -79,7 +79,6 @@ class GovProposal:
 class Contract(gl.Contract):
     """
     GovSentinelX: Autonomous DAO Proposal Impact & Compliance Scraper on GenLayer
-    Track: AI Governance / Subjective Consensus / Autonomous Security Auditing
     """
     owner: Address
     proposal_count: bigint
@@ -101,7 +100,6 @@ class Contract(gl.Contract):
         self.failed_evidence_count = bigint(0)
 
     def _get_current_timestamp(self) -> bigint:
-        """Derive trusted deterministic execution timestamp from GenLayer transaction context."""
         try:
             from datetime import datetime
             dt_raw = getattr(gl.message, "datetime", None)
@@ -125,7 +123,6 @@ class Contract(gl.Contract):
         return bigint(0)
 
     def _parse_llm_json(self, text: str) -> dict:
-        """Safely parse LLM responses, stripping markdown wrappers if present."""
         try:
             cleaned = str(text).strip()
             if cleaned.startswith("```json"):
@@ -222,8 +219,8 @@ SCRAPED PROPOSAL CONTENT:
 
 ANALYSIS RULES:
 - Assign a risk_score from 0 to 100 (0 = completely safe/standard, 100 = extreme centralization or malicious risk).
-- Determine sentiment: "FAVORABLE" (low risk, clear protocol benefits), "CONTROVERSIAL" (mixed community impact or significant tokenomic shifts), or "HIGH_RISK" (severe financial, technical, or security threats).
-- If content is unparsable or contradictory, set sentiment to "FAILED_EVIDENCE".
+- Determine sentiment: "FAVORABLE" (low risk, clear benefits), "CONTROVERSIAL" (mixed community impact), or "HIGH_RISK" (severe financial or security threats).
+- If content is unparsable, set sentiment to "FAILED_EVIDENCE".
 - Provide a concise summary report (max 250 characters).
 
 OUTPUT FORMAT:
@@ -286,11 +283,11 @@ Respond ONLY with a VALID JSON object (no markdown, no backticks):
             mine = leader_fn()
             m_sentiment = str(mine.get("sentiment", "")).strip().upper()
 
-            # DISCRETE EQUIVALENCE: validators must agree on the core sentiment category
+            # DISCRETE EQUIVALENCE: 100% agreement on sentiment classification
             if l_sentiment != m_sentiment:
                 return False
 
-            # If both analyzed, verify risk scores are within acceptable tolerance window (<= 20 points)
+            # Bounded score check for active evaluations (delta <= 20)
             if l_sentiment != "FAILED_EVIDENCE":
                 l_risk = int(leader.get("risk_score", 0))
                 m_risk = int(mine.get("risk_score", 0))
@@ -318,7 +315,7 @@ Respond ONLY with a VALID JSON object (no markdown, no backticks):
         prop.resolved_at = now_ts if now_ts > bigint(0) else self.proposal_count
         self.proposals[proposal_id] = prop
 
-        # Update statistical counters
+        # Update statistical metrics
         if prop.status == "ANALYZED":
             self.analyzed_count += bigint(1)
             if sentiment == "HIGH_RISK":
@@ -332,7 +329,6 @@ Respond ONLY with a VALID JSON object (no markdown, no backticks):
 
     @gl.public.view
     def get_proposal(self, proposal_id: str) -> str:
-        """Retrieve full details of a specific proposal as JSON."""
         if proposal_id not in self.proposals:
             raise gl.UserError("Proposal not found.")
         p = self.proposals[proposal_id]
@@ -351,17 +347,14 @@ Respond ONLY with a VALID JSON object (no markdown, no backticks):
 
     @gl.public.view
     def get_proposal_count(self) -> int:
-        """Return total number of submitted proposals."""
         return int(self.proposal_count)
 
     @gl.public.view
     def get_owner(self) -> str:
-        """Return contract owner address."""
         return _addr_str(self.owner)
 
     @gl.public.view
     def get_stats(self) -> str:
-        """Return high-level statistics across all evaluated DAO proposals."""
         return json.dumps({
             "total_proposals": int(self.proposal_count),
             "analyzed_count": int(self.analyzed_count),
@@ -373,7 +366,6 @@ Respond ONLY with a VALID JSON object (no markdown, no backticks):
 
     @gl.public.view
     def get_proposals_page(self, offset: int, limit: int) -> str:
-        """Return paginated list of proposals for UI display and analytics."""
         total = int(self.proposal_count)
         if offset < 0:
             offset = 0
